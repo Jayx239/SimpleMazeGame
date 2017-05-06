@@ -105,25 +105,25 @@ public class SimpleMazeGame
 	}
 	
 	/* Adapter methods for creating new maze items */
-	public static Maze makeMaze() {
+	private static Maze makeMaze() {
 		return new Maze();
 	}
 	
-	public static Wall makeWall() {
+	private static Wall makeWall() {
 		Wall newWall = new Wall();
 		return newWall;
 	}
 	
-	public static Room makeRoom(int roomNumber) {
+	private static Room makeRoom(int roomNumber) {
 		return new Room(roomNumber);
 	}
 	
-	public static Door makeDoor(Room room1, Room room2) {
+	private static Door makeDoor(Room room1, Room room2) {
 		return new Door(room1,room2);
 	}
 	
 	/* Method for inserting door between two rooms */
-	public static void insertDoor(Room room1, Room room2, Door door, Direction room1To2) {
+	private static void insertDoor(Room room1, Room room2, Door door, Direction room1To2) {
 		room1.setSide(room1To2, door);
 		
 		if(room1To2.equals(Direction.North))
@@ -138,7 +138,7 @@ public class SimpleMazeGame
 	}
 	
 	/* Method for making new door from input file parameters */
-	public static void makeDoor(Maze maze, String[] params) {
+	private static void makeDoor(Maze maze, String[] params) {
 		int room1Number = Integer.parseInt(params[doorRoom1Index]);
 		int room2Number = Integer.parseInt(params[doorRoom2Index]);
 		boolean isOpen = params[doorOpenIndex].toLowerCase().equals(openWord);
@@ -160,7 +160,7 @@ public class SimpleMazeGame
 	}
 	
 	/* Method for adding new room from cmd line parameters */
-	public static void addRoom(Maze maze, String[] params) {
+	private static void addRoom(Maze maze, String[] params) {
 		Room newRoom = getOrCreateRoom(maze,params[paramIdNumber]);
 		
 		if(sideIsWall(params[paramNorthIndex]))
@@ -187,23 +187,23 @@ public class SimpleMazeGame
 	}
 	
 	/* Method for determining whether side is a wall */
-	public static boolean sideIsWall(String param) {
+	private static boolean sideIsWall(String param) {
 		return param.equals(wallWord);
 	}
 	
 	/* Method for determining whether side is attached to another room */
-	public static boolean sideIsRoom(String param) {
+	private static boolean sideIsRoom(String param) {
 		return !sideIsWall(param) && param.toLowerCase().charAt(0) != doorChar;
 	}
 	
 	/* Method to set a rooms side to be a room */
-	public static void setSideRoom(Maze maze, Room newRoom, String sideRoomNumberString, Direction direction) {
+	private static void setSideRoom(Maze maze, Room newRoom, String sideRoomNumberString, Direction direction) {
 		Room sideRoom = getOrCreateRoom(maze, sideRoomNumberString);
 		newRoom.setSide(direction, sideRoom);
 	}
 	
 	/* Get a room if it exists or create it */
-	public static Room getOrCreateRoom(Maze maze, String roomNumberString) {
+	private static Room getOrCreateRoom(Maze maze, String roomNumberString) {
 		int roomNumber = Integer.parseInt(roomNumberString);
 		Room room = maze.getRoom(roomNumber);
 		room = room != null ? room : makeRoom(roomNumber);
